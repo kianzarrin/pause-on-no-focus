@@ -6,16 +6,17 @@ using System;
 
 namespace PauseOnNoFocus
 {
-    public static class Extensions {
+    public static class Extensions
+    {
         public static UICheckBox AddUpdatingCheckbox(
         this UIHelperBase helper, string label, Action<bool> SetValue, Func<bool> GetValue)
         {
-            Debug.Log($"option {label} is " + GetValue());
+            Debug.Log("option '" + label + "' is " + GetValue());
             var cb = helper.AddCheckbox(label, GetValue(), delegate (bool value) {
                 try
                 {
                     SetValue(value);
-                    Debug.Log($"option '{label}' is set to " + value);
+                    Debug.Log("option '" + label + "' is set to " + value);
                 }
                 catch (Exception ex) { Debug.LogException(ex); }
             }) as UICheckBox;
