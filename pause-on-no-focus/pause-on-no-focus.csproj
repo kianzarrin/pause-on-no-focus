@@ -13,12 +13,6 @@
     <DebugType>pdbonly</DebugType>
     <PathMap>$(MSBuildProjectDirectory)\=$(ProjectName)\</PathMap>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants />
-  </PropertyGroup>
   <PropertyGroup>
     <MangedDLLPath>..\dependencies</MangedDLLPath>
     <SteamPath>~/Library/Application Support/Steam/</SteamPath>
@@ -41,52 +35,6 @@
     <None Remove="KianCommons\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KianCommons\KianCommons\IImplict\IMod.cs" />
-    <Compile Include="KianCommons\KianCommons\IImplict\IMonoBehaviour.cs" />
-    <Compile Include="KianCommons\KianCommons\Patches\HarmonyUtil.cs" />
-    <Compile Include="KianCommons\KianCommons\Patches\TranspilerUtils.cs" />
-    <Compile Include="KianCommons\KianCommons\Plugins\PluginUtil.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\CustomTooltip.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UIAutoPanel.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UIAutoSizePanel.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UIButtonExt.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UICheckboxDropDownExt.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UICheckBoxExt.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UIDropDownExt.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UISliderExt.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UITitleBar.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Helpers\UIWindow.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\ListMessageBox.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\MessageBoxBase.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\WhatsNew\DontShowAgainMessageBox.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\WhatsNew\WhatsNew.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\WhatsNew\WhatsNewEntry.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\MessageBox\WhatsNew\WhatsNewMessageBox.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Table\ArrayExtension.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Table\UITable.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Table\UITableCellInner.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Table\UITableCellOuter.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\Table\UITableRow.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\TextureExtensions.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\TextureUtil.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\UIExtensions.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\UIHelperExtension.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\UIKeymappingsPanel.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\UIToolButton.cs" />
-    <Compile Include="KianCommons\KianCommons\UI\UIUtils.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\Assertion.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\EnumerationExtensions.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\HelpersExtensions.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\Log.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\ReflectionHelpers.cs" />
-    <Compile Include="KianCommons\KianCommons\Util\StringExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CitiesHarmony.API" Version="2.0.0" />
-    <PackageReference Include="GitInfo" Version="2.1.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Mono.Unofficial.pdb2mdb" Version="4.2.3.4" />
   </ItemGroup>
   <ItemGroup>
@@ -103,7 +51,6 @@
       <Output TaskParameter="Assemblies" ItemName="Targets" />
     </GetAssemblyIdentity>
     <ItemGroup>
-      <AuxilaryFiles Include="$(TargetDir)Resources\*.png;$(TargetDir)CitiesHarmony.API.dll" />
       <VersionNumber Include="@(Targets->'%(Version)')" />
     </ItemGroup>
     <PropertyGroup>
@@ -120,7 +67,6 @@
     <Delete Files="$(TargetPath).mdb" />
     <Exec Command="&quot;$(pdb2mdb)&quot; &quot;$(TargetPath)&quot;" />
     <Copy SourceFiles="$(TargetPath).mdb" DestinationFolder="$(DeployDir)" />
-    <Copy SourceFiles="@(AuxilaryFiles)" DestinationFolder="$(DeployDir)" />
     <Delete Files="$(DeployDir)$(TargetFileName)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
     <Message Importance="high" Text="AssemblyVersion=@(VersionNumber) time=$(Now)" />
