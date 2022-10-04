@@ -10,7 +10,7 @@ namespace PauseOnNoFocus
         public static UICheckBox AddUpdatingCheckbox(
         this UIHelperBase helper, string label, Action<bool> SetValue, Func<bool> GetValue)
         {
-            Debug.Log($"option {label} is " + GetValue());
+            Debug.Log($"option '{label}' is " + GetValue());
             var cb = helper.AddCheckbox(label, GetValue(), delegate (bool value) {
                 try
                 {
